@@ -45,6 +45,7 @@ let botaoApagar = (l) =>{
     botao.innerHTML = '<h6>X</h6>';
     botao.onclick = () =>{
         l.remove();
+        recuperarValores();
     }
     return botao;
 }
@@ -56,16 +57,15 @@ function calcular(container){
     let preco = parseFloat(container.getElementsByTagName('input')[2].value);
     preco = isNaN(preco) ? 0 : preco;
 
-    let resultado = document.getElementById('resultado');
-
     let total = container.getElementsByTagName('input')[3];
     
     total.value = (quant * preco).toFixed(2);
 
-    resultado.value = `R$ ${recuperarValores().toFixed(2)}`;
+    recuperarValores();
 }
 
 function recuperarValores(){
+    let resultado = document.getElementById('resultado');
     let linhas = document.getElementsByTagName('tr');
     let total = 0;
     let index = linhas.length;
@@ -74,5 +74,5 @@ function recuperarValores(){
         total += parseFloat(linhas[i].getElementsByTagName('input')[3].value);
     }
     
-    return total;
+    resultado.value = `R$ ${total.toFixed(2)}`;
 }
