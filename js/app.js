@@ -18,7 +18,7 @@ function criarLinha(){
 
         if(i == 'total'){
             input.disabled = 'disabled';
-            input.placeholder = 'R$ 0.00';
+            input.placeholder = '0.00';
         }
         else if (i == 'quantidade' || i == 'preco'){
             input.placeholder = '';
@@ -52,16 +52,27 @@ let botaoApagar = (l) =>{
 function calcular(container){
 
     let quant = parseFloat(container.getElementsByTagName('input')[1].value);
+    quant = isNaN(quant) ? 0 : quant;
     let preco = parseFloat(container.getElementsByTagName('input')[2].value);
-    let resultado = parseFloat(document.getElementById('resultado').value);
+    preco = isNaN(preco) ? 0 : preco;
+
+    let resultado = document.getElementById('resultado');
 
     let total = container.getElementsByTagName('input')[3];
     
-    total.value = `R$ ${(quant * preco).toFixed(2)}`;
+    total.value = (quant * preco).toFixed(2);
 
-    resultado.value = `R$`;
+    resultado.value = `R$ ${recuperarValores().toFixed(2)}`;
 }
 
-function verTodosValores(){
+function recuperarValores(){
+    let linhas = document.getElementsByTagName('tr');
+    let total = 0;
+    let index = linhas.length;
+
+    for(let i = 1; i < index; i++){
+        total += parseFloat(linhas[i].getElementsByTagName('input')[3].value);
+    }
     
+    return total;
 }
