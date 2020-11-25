@@ -18,7 +18,7 @@ function criarLinha(){
 
         if(i == 'total'){
             input.disabled = 'disabled';
-            input.placeholder = '0.00';
+            input.value = 0.00;
         }
         else if (i == 'quantidade' || i == 'preco'){
             input.placeholder = '';
